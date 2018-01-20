@@ -13,17 +13,19 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
 
-    let imagemanager = PHImageManager.default()
+    let imagemanager = PHCachingImageManager()
     var photosArr: [PHAsset] = []
+    let size = CGSize(width: 56, height: 56)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let photos = PHAsset.fetchAssets(with: .image, options: nil)
-        print(photos.count)
         for i in 0 ..< photos.count {
             photosArr.append(photos[i])
         }
+        
+        imagemanager.startCachingImages(for: photosArr, targetSize: size, contentMode: .aspectFill, options: nil)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -49,20 +51,15 @@ class CollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return photosArr.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         let ph = photosArr[indexPath.item]
-        let size = CGSize(width: 56, height: 56)
         imagemanager.requestImage(for: ph, targetSize: size, contentMode: .aspectFill, options: nil, resultHandler:{ (photo, nil) in
                 cell.imageView.image = photo
         })

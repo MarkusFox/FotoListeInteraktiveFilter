@@ -61,13 +61,10 @@ class CollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
-        print("hello")
         let ph = photosArr[indexPath.item]
         let size = CGSize(width: 56, height: 56)
-        print("CollectionViewCell")
         imagemanager.requestImage(for: ph, targetSize: size, contentMode: .aspectFill, options: nil, resultHandler:{ (photo, nil) in
                 cell.imageView.image = photo
-                print("Noob")
         })
     
         return cell

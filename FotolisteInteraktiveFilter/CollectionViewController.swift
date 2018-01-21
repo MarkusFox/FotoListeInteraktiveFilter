@@ -76,12 +76,18 @@ class CollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let ph = photosArr[indexPath.item]
+        imagemanager.requestImageData(for: ph, options: nil) { (data, _, _, _) in
+            let retrievedPhoto = UIImage(data: data!)
+            let photoView = UIImageView(frame: self.view.frame)
+            photoView.image = retrievedPhoto
+            self.view.addSubview(photoView)
+        }
+    }
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item

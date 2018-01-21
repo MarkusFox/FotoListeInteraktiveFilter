@@ -83,9 +83,10 @@ class CollectionViewController: UICollectionViewController {
         let ph = photosArr[indexPath.item]
         imagemanager.requestImageData(for: ph, options: nil) { (data, _, _, _) in
             let retrievedPhoto = UIImage(data: data!)
-            let photoView = UIImageView(frame: self.view.frame)
-            photoView.image = retrievedPhoto
-            self.view.addSubview(photoView)
+            let imagevc = self.storyboard?.instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+            self.present(imagevc, animated: true) {
+                imagevc.imageView.image = retrievedPhoto
+            }
         }
     }
 

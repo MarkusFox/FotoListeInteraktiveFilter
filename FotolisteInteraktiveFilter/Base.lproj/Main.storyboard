@@ -62,7 +62,7 @@
         <!--Image View Controller-->
         <scene sceneID="zOW-94-hS0">
             <objects>
-                <viewController id="oLd-uI-UaS" customClass="ImageViewController" customModule="FotolisteInteraktiveFilter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imageVC" id="oLd-uI-UaS" customClass="ImageViewController" customModule="FotolisteInteraktiveFilter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rom-i6-5L5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,6 +80,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J6m-0u-iDo"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="8fw-jR-CZu" id="KMb-F9-xSA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="18v-O4-xid" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

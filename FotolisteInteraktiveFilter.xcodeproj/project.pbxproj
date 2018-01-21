@@ -13,6 +13,7 @@
 		28A4AB9B201387A600C714E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A4AB99201387A600C714E6 /* LaunchScreen.storyboard */; };
 		28A4ABA320138B7200C714E6 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A4ABA220138B7200C714E6 /* CollectionViewController.swift */; };
 		28A4ABA52013920200C714E6 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A4ABA42013920200C714E6 /* CollectionViewCell.swift */; };
+		28CF2D772014BE6A00AEAF69 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CF2D762014BE6A00AEAF69 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		28A4AB9C201387A600C714E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28A4ABA220138B7200C714E6 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		28A4ABA42013920200C714E6 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		28CF2D762014BE6A00AEAF69 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				28A4AB90201387A600C714E6 /* AppDelegate.swift */,
 				28A4ABA220138B7200C714E6 /* CollectionViewController.swift */,
 				28A4ABA42013920200C714E6 /* CollectionViewCell.swift */,
+				28CF2D762014BE6A00AEAF69 /* ImageViewController.swift */,
 				28A4AB94201387A600C714E6 /* Main.storyboard */,
 				28A4AB97201387A600C714E6 /* Assets.xcassets */,
 				28A4AB99201387A600C714E6 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 			files = (
 				28A4ABA320138B7200C714E6 /* CollectionViewController.swift in Sources */,
 				28A4AB91201387A600C714E6 /* AppDelegate.swift in Sources */,
+				28CF2D772014BE6A00AEAF69 /* ImageViewController.swift in Sources */,
 				28A4ABA52013920200C714E6 /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

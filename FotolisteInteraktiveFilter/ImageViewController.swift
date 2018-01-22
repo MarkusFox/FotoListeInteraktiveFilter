@@ -26,9 +26,17 @@ class ImageViewController: UIViewController {
     
     func setDisplayImage(_ image: PHAsset, imageManager: PHCachingImageManager) {
         activityIndicator.startAnimating()
-        imageManager.requestImageData(for: image, options: nil) { (data, _, _, _) in
-            let retrievedPhoto = UIImage(data: data!)
-            self.image = retrievedPhoto
+        /*
+         might be unneccessary in this assignment but: use [weak self] to prevent a memory cycle loop
+         we don't want the imagerequest to keep the controller alive, although it might not even be used anymore
+        */
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            imageManager.requestImageData(for: image, options: nil) { (data, _, _, _) in
+                let retrievedPhoto = UIImage(data: data!)
+                DispatchQueue.main.async {
+                    self?.image = retrievedPhoto
+                }
+            }
         }
     }
     

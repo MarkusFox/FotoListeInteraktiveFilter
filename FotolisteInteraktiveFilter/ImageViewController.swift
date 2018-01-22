@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import Photos
 
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet var panRecognizer: UIPanGestureRecognizer!
+    
+    func setDisplayImage(_ image: PHAsset, imageManager: PHCachingImageManager) {
+        imageManager.requestImageData(for: image, options: nil) { (data, _, _, _) in
+            let retrievedPhoto = UIImage(data: data!)
+            self.imageView.image = retrievedPhoto
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.addGestureRecognizer(panRecognizer)
 
         // Do any additional setup after loading the view.
     }
@@ -24,10 +29,6 @@ class ImageViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func drag(_ sender: Any) {
-        print("dragging")
     }
     
     /*

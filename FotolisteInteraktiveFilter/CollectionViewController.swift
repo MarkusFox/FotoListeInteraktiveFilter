@@ -81,12 +81,9 @@ class CollectionViewController: UICollectionViewController {
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let ph = photosArr[indexPath.item]
-        imagemanager.requestImageData(for: ph, options: nil) { (data, _, _, _) in
-            let retrievedPhoto = UIImage(data: data!)
-            let imagevc = self.storyboard?.instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
-            self.present(imagevc, animated: true) {
-                imagevc.imageView.image = retrievedPhoto
-            }
+        let imagevc = storyboard?.instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+        self.present(imagevc, animated: true) {
+            imagevc.setDisplayImage(ph, imageManager: self.imagemanager)
         }
     }
 

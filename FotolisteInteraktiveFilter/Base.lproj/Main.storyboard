@@ -70,9 +70,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8fw-jR-CZu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="CtA-Hj-BYw" appends="YES" id="MYY-kh-6o5"/>
-                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -86,15 +83,9 @@
                     </view>
                     <connections>
                         <outlet property="imageView" destination="8fw-jR-CZu" id="KMb-F9-xSA"/>
-                        <outlet property="panRecognizer" destination="CtA-Hj-BYw" id="vW6-mk-33q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="18v-O4-xid" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="CtA-Hj-BYw">
-                    <connections>
-                        <action selector="drag:" destination="oLd-uI-UaS" id="8ZD-mz-0ad"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="962.39999999999998" y="44.527736131934034"/>
         </scene>

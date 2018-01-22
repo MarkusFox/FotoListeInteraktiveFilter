@@ -71,6 +71,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hOo-t2-tBA">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -82,6 +87,7 @@
                         <viewLayoutGuide key="safeArea" id="J6m-0u-iDo"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="hOo-t2-tBA" id="Cs5-Dj-qcd"/>
                         <outlet property="imageView" destination="8fw-jR-CZu" id="KMb-F9-xSA"/>
                     </connections>
                 </viewController>

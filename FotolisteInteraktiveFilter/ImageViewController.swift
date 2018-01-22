@@ -12,11 +12,23 @@ import Photos
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private var image: UIImage? {
+        get {
+            return imageView.image
+        }
+        set {
+            imageView.image = newValue
+            activityIndicator.stopAnimating()
+        }
+    }
     
     func setDisplayImage(_ image: PHAsset, imageManager: PHCachingImageManager) {
+        activityIndicator.startAnimating()
         imageManager.requestImageData(for: image, options: nil) { (data, _, _, _) in
             let retrievedPhoto = UIImage(data: data!)
-            self.imageView.image = retrievedPhoto
+            self.image = retrievedPhoto
         }
     }
     

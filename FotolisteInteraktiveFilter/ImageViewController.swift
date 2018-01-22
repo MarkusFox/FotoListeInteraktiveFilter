@@ -24,6 +24,9 @@ class ImageViewController: UIViewController {
         }
     }
     
+    private var isSwiping: Bool = false
+    private var initialPosition: CGPoint?
+    
     func setDisplayImage(_ image: PHAsset, imageManager: PHCachingImageManager) {
         activityIndicator.startAnimating()
         /*
@@ -40,9 +43,31 @@ class ImageViewController: UIViewController {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isSwiping = true
+        initialPosition = touches.first?.location(in: self.view)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let from = initialPosition, let to = touches.first?.location(in: self.view) {
+            let xDiff = max(from.x, to.x) - min(from.x, to.x)
+            let yDiff = max(from.y, to.y) - min(from.y, to.y)
+            //print(xDiff)
+            //print(yDiff)
+            if xDiff >= yDiff {
+                //TODO Sättigung Filter
+                print("Sättigung")
+            } else {
+                //TODO CIStyllize Filter
+                print("CIStylize")
+            }
+        }
+        isSwiping = false
+        initialPosition = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 

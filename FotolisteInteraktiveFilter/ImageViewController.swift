@@ -63,8 +63,8 @@ class ImageViewController: UIViewController {
                 //Pixellate Filter
                 let percentage = to.y / self.view.frame.height
                 let scale = 8.00 * percentage
+                let inputImg = CIImage(image: self.image!)
                 DispatchQueue.global(qos: .userInitiated).async {
-                    let inputImg = CIImage(image: self.image!)
                     let filter = CIFilter(name: "CIPixellate")
                     filter?.setValue(inputImg, forKey: "inputImage")
                     filter?.setValue(scale, forKey: "inputScale")

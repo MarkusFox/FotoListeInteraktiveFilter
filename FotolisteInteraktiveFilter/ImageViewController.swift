@@ -25,7 +25,6 @@ class ImageViewController: UIViewController {
         }
     }
     
-    private var isSwiping: Bool = false
     private var initialPosition: CGPoint?
     private var context = CIContext(options: nil)
     
@@ -46,7 +45,6 @@ class ImageViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isSwiping = true
         initialPosition = touches.first?.location(in: self.view)
     }
     
@@ -58,11 +56,23 @@ class ImageViewController: UIViewController {
             //print(yDiff)
             if xDiff >= yDiff {
                 //Sättigung Filter
-                print("Sättigung")
+                let percentage = to.x / self.view.frame.width
+                let inputImg = CIImage(image: self.image!)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let filter = CIFilter(name: "CIColorControls")
+                    filter?.setValue(inputImg, forKey: "inputImage")
+                    filter?.setValue(percentage, forKey: "inputSaturation")
+                    
+                    let cgImage = self.context.createCGImage(filter!.outputImage!, from: filter!.outputImage!.extent)
+                    let newImage = UIImage(cgImage: cgImage!)
+                    DispatchQueue.main.async {
+                        self.image = newImage
+                    }
+                }
             } else {
                 //Pixellate Filter
                 let percentage = to.y / self.view.frame.height
-                let scale = 8.00 * percentage
+                let scale = 50.00 * percentage
                 let inputImg = CIImage(image: self.image!)
                 DispatchQueue.global(qos: .userInitiated).async {
                     let filter = CIFilter(name: "CIPixellate")
@@ -77,7 +87,6 @@ class ImageViewController: UIViewController {
                 }
             }
         }
-        isSwiping = false
         initialPosition = nil
     }
     

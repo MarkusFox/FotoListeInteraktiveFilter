@@ -61,16 +61,20 @@ class ImageViewController: UIViewController {
                 print("Sättigung")
             } else {
                 //Pixellate Filter
-                let inputImg = CIImage(image: self.image!)
-                let filter = CIFilter(name: "CIPixellate")
-                filter?.setValue(inputImg, forKey: "inputImage")
                 let percentage = to.y / self.view.frame.height
                 let scale = 8.00 * percentage
-                filter?.setValue(scale, forKey: "inputScale")
-                
-                let cgImage = context.createCGImage(filter!.outputImage!, from: filter!.outputImage!.extent)
-                let newImage = UIImage(cgImage: cgImage!)
-                self.image = newImage
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let inputImg = CIImage(image: self.image!)
+                    let filter = CIFilter(name: "CIPixellate")
+                    filter?.setValue(inputImg, forKey: "inputImage")
+                    filter?.setValue(scale, forKey: "inputScale")
+                    
+                    let cgImage = self.context.createCGImage(filter!.outputImage!, from: filter!.outputImage!.extent)
+                    let newImage = UIImage(cgImage: cgImage!)
+                    DispatchQueue.main.async {
+                        self.image = newImage
+                    }
+                }
             }
         }
         isSwiping = false

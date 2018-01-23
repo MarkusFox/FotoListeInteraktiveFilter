@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import CoreImage
 
 class ImageViewController: UIViewController {
 
@@ -26,6 +27,7 @@ class ImageViewController: UIViewController {
     
     private var isSwiping: Bool = false
     private var initialPosition: CGPoint?
+    private var context = CIContext(options: nil)
     
     func setDisplayImage(_ image: PHAsset, imageManager: PHCachingImageManager) {
         activityIndicator.startAnimating()
@@ -55,11 +57,20 @@ class ImageViewController: UIViewController {
             //print(xDiff)
             //print(yDiff)
             if xDiff >= yDiff {
-                //TODO Sättigung Filter
+                //Sättigung Filter
                 print("Sättigung")
             } else {
-                //TODO CIStyllize Filter
-                print("CIStylize")
+                //Pixellate Filter
+                let inputImg = CIImage(image: self.image!)
+                let filter = CIFilter(name: "CIPixellate")
+                filter?.setValue(inputImg, forKey: "inputImage")
+                let percentage = to.y / self.view.frame.height
+                let scale = 8.00 * percentage
+                filter?.setValue(scale, forKey: "inputScale")
+                
+                let cgImage = context.createCGImage(filter!.outputImage!, from: filter!.outputImage!.extent)
+                let newImage = UIImage(cgImage: cgImage!)
+                self.image = newImage
             }
         }
         isSwiping = false

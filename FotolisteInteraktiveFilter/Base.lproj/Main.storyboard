@@ -75,10 +75,26 @@
                                 <rect key="frame" x="169" y="325" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkb-5g-PRD">
+                                <rect key="frame" x="309" y="30" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="JwH-OD-6zb"/>
+                                    <constraint firstAttribute="height" constant="50" id="KX3-aT-q5S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" image="cancelButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeVC:" destination="oLd-uI-UaS" eventType="touchUpInside" id="P9X-F2-qB1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="gkb-5g-PRD" firstAttribute="top" secondItem="J6m-0u-iDo" secondAttribute="top" constant="10" id="6Xm-09-Ou6"/>
                             <constraint firstItem="8fw-jR-CZu" firstAttribute="leading" secondItem="J6m-0u-iDo" secondAttribute="leading" id="Hag-Is-AnT"/>
+                            <constraint firstItem="J6m-0u-iDo" firstAttribute="trailing" secondItem="gkb-5g-PRD" secondAttribute="trailing" constant="16" id="RZ1-7R-G4S"/>
                             <constraint firstItem="hOo-t2-tBA" firstAttribute="centerY" secondItem="J6m-0u-iDo" secondAttribute="centerY" id="lbg-hM-JsW"/>
                             <constraint firstItem="hOo-t2-tBA" firstAttribute="centerX" secondItem="J6m-0u-iDo" secondAttribute="centerX" id="qjS-JC-Yze"/>
                             <constraint firstItem="8fw-jR-CZu" firstAttribute="trailing" secondItem="J6m-0u-iDo" secondAttribute="trailing" id="sze-SK-lVn"/>
@@ -89,6 +105,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="hOo-t2-tBA" id="Cs5-Dj-qcd"/>
+                        <outlet property="closeVCButton" destination="gkb-5g-PRD" id="ucV-uA-hD8"/>
                         <outlet property="imageView" destination="8fw-jR-CZu" id="KMb-F9-xSA"/>
                     </connections>
                 </viewController>
@@ -97,4 +114,7 @@
             <point key="canvasLocation" x="962.39999999999998" y="44.527736131934034"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cancelButton" width="25" height="25"/>
+    </resources>
 </document>

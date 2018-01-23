@@ -14,7 +14,11 @@ class ImageViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBAction func closeVC(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
+    @IBOutlet weak var closeVCButton: UIButton!
     private var image: UIImage? {
         get {
             return imageView.image
@@ -22,6 +26,7 @@ class ImageViewController: UIViewController {
         set {
             imageView.image = newValue
             activityIndicator.stopAnimating()
+            closeVCButton.alpha = 0.4
         }
     }
     

@@ -13,9 +13,10 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
 
+    @IBOutlet var myCollectionView: UICollectionView!
     let imagemanager = PHCachingImageManager()
     var photosArr: [PHAsset] = []
-    let size = CGSize(width: 56, height: 56)
+    var size = CGSize(width: 56, height: 56)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,13 @@ class CollectionViewController: UICollectionViewController {
             photosArr.append(photos[i])
         }
         
+        //'interfaceOrientation' was deprecated in iOS 8.0 :(
+        if view.bounds.size.width > view.bounds.height {
+            setLayoutForCellSizing(interfaceOrientation: .landscapeLeft)
+        } else {
+            setLayoutForCellSizing(interfaceOrientation: .portrait)
+        }
+        
         imagemanager.startCachingImages(for: photosArr, targetSize: size, contentMode: .aspectFill, options: nil)
 
         // Uncomment the following line to preserve selection between presentations
@@ -32,21 +40,39 @@ class CollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    func setLayoutForCellSizing(interfaceOrientation: UIInterfaceOrientation) {
+        var itemSize: CGFloat
+        switch interfaceOrientation {
+        case .landscapeLeft:
+            itemSize = UIScreen.main.bounds.width/16
+        case .landscapeRight:
+            itemSize = UIScreen.main.bounds.width/16
+        default:
+            itemSize = UIScreen.main.bounds.width/10
+        }
+        size = CGSize(width: itemSize, height: itemSize)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        myCollectionView.collectionViewLayout = layout
+    }
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        //goes to main queue because we need the screen width of the new device orientation
+        DispatchQueue.main.async {
+            self.setLayoutForCellSizing(interfaceOrientation: toInterfaceOrientation)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -69,13 +95,6 @@ class CollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -86,20 +105,4 @@ class CollectionViewController: UICollectionViewController {
             imagevc.setDisplayImage(ph, imageManager: self.imagemanager)
         }
     }
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }

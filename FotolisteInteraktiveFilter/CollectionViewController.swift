@@ -13,9 +13,10 @@ private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController {
 
+    @IBOutlet var myCollectionView: UICollectionView!
     let imagemanager = PHCachingImageManager()
     var photosArr: [PHAsset] = []
-    let size = CGSize(width: 56, height: 56)
+    var size = CGSize(width: 56, height: 56)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +26,43 @@ class CollectionViewController: UICollectionViewController {
             photosArr.append(photos[i])
         }
         
+        let itemSize = UIScreen.main.bounds.width/10
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        myCollectionView.collectionViewLayout = layout
+        
         imagemanager.startCachingImages(for: photosArr, targetSize: size, contentMode: .aspectFill, options: nil)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        DispatchQueue.main.async {
+            var itemSize: CGFloat
+            switch toInterfaceOrientation {
+            case .landscapeLeft:
+                itemSize = UIScreen.main.bounds.width/16
+            case .landscapeRight:
+                itemSize = UIScreen.main.bounds.width/16
+            default:
+                itemSize = UIScreen.main.bounds.width/10
+            }
+            
+            let layout = UICollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
+            layout.itemSize = CGSize(width: itemSize, height: itemSize)
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 0
+            
+            self.myCollectionView.collectionViewLayout = layout
+        }
     }
 
     override func didReceiveMemoryWarning() {

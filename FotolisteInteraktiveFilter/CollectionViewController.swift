@@ -26,14 +26,12 @@ class CollectionViewController: UICollectionViewController {
             photosArr.append(photos[i])
         }
         
-        let itemSize = UIScreen.main.bounds.width/10
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
-        layout.itemSize = CGSize(width: itemSize, height: itemSize)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        
-        myCollectionView.collectionViewLayout = layout
+        //'interfaceOrientation' was deprecated in iOS 8.0 :(
+        if view.bounds.size.width > view.bounds.height {
+            setLayoutForCellSizing(interfaceOrientation: .landscapeLeft)
+        } else {
+            setLayoutForCellSizing(interfaceOrientation: .portrait)
+        }
         
         imagemanager.startCachingImages(for: photosArr, targetSize: size, contentMode: .aspectFill, options: nil)
 
@@ -43,25 +41,31 @@ class CollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
     
+    func setLayoutForCellSizing(interfaceOrientation: UIInterfaceOrientation) {
+        var itemSize: CGFloat
+        switch interfaceOrientation {
+        case .landscapeLeft:
+            itemSize = UIScreen.main.bounds.width/16
+        case .landscapeRight:
+            itemSize = UIScreen.main.bounds.width/16
+        default:
+            itemSize = UIScreen.main.bounds.width/10
+        }
+        size = CGSize(width: itemSize, height: itemSize)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        myCollectionView.collectionViewLayout = layout
+    }
+    
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        //goes to main queue because we need the screen width of the new device orientation
         DispatchQueue.main.async {
-            var itemSize: CGFloat
-            switch toInterfaceOrientation {
-            case .landscapeLeft:
-                itemSize = UIScreen.main.bounds.width/16
-            case .landscapeRight:
-                itemSize = UIScreen.main.bounds.width/16
-            default:
-                itemSize = UIScreen.main.bounds.width/10
-            }
-            
-            let layout = UICollectionViewFlowLayout()
-            layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0)
-            layout.itemSize = CGSize(width: itemSize, height: itemSize)
-            layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
-            
-            self.myCollectionView.collectionViewLayout = layout
+            self.setLayoutForCellSizing(interfaceOrientation: toInterfaceOrientation)
         }
     }
 

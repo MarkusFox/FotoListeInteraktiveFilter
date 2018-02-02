@@ -54,8 +54,7 @@ class ImageViewController: UIViewController {
         if let from = initialPosition, let to = touches.first?.location(in: self.view) {
             let xDiff = max(from.x, to.x) - min(from.x, to.x)
             let yDiff = max(from.y, to.y) - min(from.y, to.y)
-            //print(xDiff)
-            //print(yDiff)
+            
             if xDiff >= yDiff {
                 //Sättigung Filter
                 let percentage = to.x / self.view.frame.width

@@ -37,7 +37,10 @@ class ImageViewController: UIViewController {
          we don't want the imagerequest to keep the controller alive, although it might not even be used anymore
         */
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            imageManager.requestImageData(for: image, options: nil) { (data, _, _, _) in
+            //testing on a real device needed isNetworkAccessAllowed to be true
+            let options = PHImageRequestOptions()
+            options.isNetworkAccessAllowed = true
+            imageManager.requestImageData(for: image, options: options) { (data, _, _, _) in
                 let retrievedPhoto = UIImage(data: data!)
                 DispatchQueue.main.async {
                     self?.image = retrievedPhoto
@@ -73,7 +76,7 @@ class ImageViewController: UIViewController {
             } else {
                 //Pixellate Filter
                 let percentage = 1.0 - (to.y / self.view.frame.height)
-                let scale = 50.00 * percentage
+                let scale = 40.00 * percentage
                 let inputImg = CIImage(image: self.image!)
                 DispatchQueue.global(qos: .userInitiated).async {
                     let filter = CIFilter(name: "CIPixellate")
